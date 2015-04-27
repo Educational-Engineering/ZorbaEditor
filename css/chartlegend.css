@@ -1,0 +1,25 @@
+#legend{
+    width: 250px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #333;
+}
+
+#legend ul {
+    padding: 10px;
+    background: #efefef;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    list-style-type: none;
+}
+
+#legend ul li span{
+    float:left;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+

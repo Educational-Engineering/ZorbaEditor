@@ -1,0 +1,392 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+.main .page-header {
+    margin-top: 0;
+}
+
+
+#editor{
+    height: 300px;
+}
+
+#resulttabs{
+  min-height: 400px;
+}
+
+.div-inline{
+    display:inline-block;
+}
+
+.div-right{
+    float:right;
+}
+
+.row-nomargin{
+  margin: 0;
+}
+
+.hoverable-icon{
+  color: #888;
+}
+
+.hoverable-icon:hover{
+  color: #333;
+  cursor:pointer;
+}
+
+#resulttabs code{
+    white-space: pre-wrap;
+}
+
+
+
+.navbar-coloured{
+    background: #0B5FA5;
+}
+
+.navbar-coloured li a{
+    color: #ccc;
+}
+
+.navbar-coloured li a:hover{
+    background: #3F8FD2;
+    color:  #eee;
+}
+
+.navbar-brand{
+    color: #fff;
+    font-style: italic;
+    font-size: 19px;
+    font-weight: bolder;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.placeholders h4 {
+    margin-bottom: 0;
+}
+.placeholder {
+    margin-bottom: 20px;
+}
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+/*EMBED*/
+
+#embedtable{
+    width: 100%;
+
+}
+#embedtable tr{
+    height: 30px;
+    margin: 0px 10px;
+}
+#embedtable tr:nth-child(2){
+    background: #efefef;
+}
+#embedtable tr td{
+    padding: 5px;
+}
+
+
+/*
+ * Tree view
+ */
+ .tree {
+    margin:0;
+    padding: 0;
+    min-height:20px;
+    margin-bottom:20px;
+}
+.tree ul{
+  padding: 5px;
+}
+.tree li {
+    list-style-type:none;
+    margin:0;
+    padding:15px 0px 5px 5px;
+    position:relative;
+    left: 0px;
+}
+
+.tree ul li ul li{
+  padding: 5px 5px 5px 20px;
+  margin:0;
+}
+.tree ul li ul li:hover{
+  background: #ccc;
+}
+
+.tree .removeicon1,
+.tree .renameicon1{
+  margin-right: 10px;
+}
+
+.tree .removeicon1,
+.tree .removeicon2,
+.tree .renameicon1{
+  float: right;
+  color: transparent;
+  margin-left: 10px;
+}
+
+.tree ul li ul li:hover .removeicon2,
+.tree ul li:hover .removeicon1,
+.tree ul li:hover .renameicon1{
+  color: #333;
+  cursor: pointer;
+}
+
+/*
+ * Typeahead Autocomplete
+ */
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  padding: 8px 12px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-dropdown-menu {
+  width: 422px;
+  margin-top: 12px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+/*
+ * File Upload Hack
+ */
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+
+/*
+ * File Upload Hack
+ */
+
+#modal-upload-files ul{
+  list-style-type: none;
+  list-style-position: outside;
+  padding-left:0;
+}
+
+#modal-upload-files ul li{
+  padding: 2px 4px;
+  margin: 2px 0;
+  cursor: pointer;
+}
+
+#modal-upload-files ul li:nth-child(even){
+  background: #ddd;
+}
+
+#modal-upload-files ul li:hover{
+  background: #1874cd;
+  color: #fff;
+}
+
+/*
+ * Color Picker
+ */
+
+
+.colpicker {
+	margin:0;
+	padding:0;
+	border:0;
+	width:70px;
+	height:20px;
+	border-right:20px solid green;
+	line-height:20px;
+}
+
+/*
+ * SignIn Form
+ */
+
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin #inputEmail {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

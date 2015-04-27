@@ -62,7 +62,7 @@ function executeQuery($qcode, $params){
     }
 
     //direct execution
-    $url = 'http://52.28.54.81/zorbaquery.php';
+    $url = getZorbaProxyURL();
     $data = array('query' => $qcode);
     $options = array(
         'http' => array(
@@ -125,7 +125,7 @@ function getRandomCol(){
     <title><?php echo $doc['qname']; ?></title>
 </head>
 
-<script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type='text/javascript' src="js/jquery.min.js"></script>
 <script type='text/javascript' src="js/Chart.js"></script>
 
 <link href="css/chartlegend.css" rel="stylesheet">

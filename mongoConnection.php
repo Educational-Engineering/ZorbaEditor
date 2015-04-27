@@ -6,6 +6,10 @@ function getDB(){
     return $db;
 }
 
+function getZorbaProxyURL(){
+    return 'http://52.28.54.81/zorbaquery.php';
+}
+
 function getCollQueries(){
     $coll = getDB()->queries;
     return $coll;

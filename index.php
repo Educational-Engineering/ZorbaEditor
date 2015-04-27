@@ -5,9 +5,14 @@ include 'mongoConnection.php';
 include 'usermanager.php';
 
 $content = isset($_GET['content']) ? $_GET['content'] : "";
+$siteURL = 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 
-if (!isset($_SESSION['loggedin']))
+if (!isset($_SESSION['loggedin'])) {
     $_SESSION['loggedin'] = false;
+    $_SESSION['loggedinUsername'] = "";
+    $_SESSION['loggedinIsAdmin'] = false;
+    $_SESSION['alertmessage'] = "";
+}
 
 if (isset($_GET['uaction']) && $_GET['uaction'] == 'login') {
     //try to log in
@@ -17,7 +22,7 @@ if (isset($_GET['uaction']) && $_GET['uaction'] == 'login') {
         $_SESSION['loggedinUsername'] = $_POST['username'];
         $_SESSION['loggedinIsAdmin'] = isAdmin($_POST['username']);
         $_SESSION['alertmessage'] = "";
-        header('Location: http://localhost/zorba/zorbaeditor/');
+        header('Location: '.$siteURL.'/');
     } else {
         //die("LOGINFAILED: ".$res);
     }
@@ -69,7 +74,7 @@ if ($content == 'users' && isset($_GET['uaction'])) {
     }
     $_SESSION['alertmessage'] = $alertMessage;
 
-    header('Location: http://localhost/zorba/zorbaeditor/?content=users');
+    header('Location: '.$siteURL.'/?content=users');
 }
 
 ?>
@@ -118,7 +123,7 @@ if ($content == 'users' && isset($_GET['uaction'])) {
 
         });//]]>
 
-        var global_PAGEDIR = '<?php echo 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']); ?>';
+        var global_PAGEDIR = '<?php echo $siteURL; ?>';
 
     </script>
 

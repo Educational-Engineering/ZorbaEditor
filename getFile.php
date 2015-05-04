@@ -1,10 +1,10 @@
 <?php
 include 'mongoConnection.php';
-
+/*
 if($_SERVER['SERVER_ADDR'] != $_SERVER['REMOTE_ADDR']){
     die('No Remote Access Allowed: '.$_SERVER['SERVER_ADDR'].' vs. '.$_SERVER['REMOTE_ADDR']);
 }
-
+*/
 $coll = getCollFiles();
 
 $secret = $_GET['secret'];

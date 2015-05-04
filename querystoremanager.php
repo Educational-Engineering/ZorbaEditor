@@ -181,10 +181,30 @@ switch ($_POST['action']) {
         $fcursor = $fcoll->find();
         echo "<ul>";
         foreach ($fcursor as $filedoc) {
-            echo "<li><span class=\"glyphicon glyphicon-remove\" /> (" . date('d-M-Y h:i', $filedoc['uploaded']->sec) . ") - <span class=\"fname\">" . $filedoc['filename'] . "</span></li>";
+            echo "<li><span class=\"glyphicon glyphicon-remove\" /> (" . date('d-M-Y h:i', $filedoc['uploaded']->sec) . ") - <span class=\"fname\" fsecret=\"".$filedoc['secret']."\">" . $filedoc['filename'] . "</span></li>";
         }
         echo "</ul>";
         $showresponse = false;
+        break;
+
+    case "deleteFile":
+
+        if (!isset($_POST['filename'])) {
+            $response['status'] = 'ERROR';
+            $response['message'] = $doc['No Filename given'];
+        } else{
+            $filename = $_POST['filename'];
+            $secret = $_POST['secret'];
+            $loggedInUser = $_SESSION['loggedinUsername'];
+            $coll = getCollFiles();
+            if($coll->count(array('filename' => $_POST['filename'], 'secret'=>$secret, 'owner' => $loggedInUser)) == 0){
+                $response['status'] = 'ERROR';
+                $response['message'] = $doc['Not enough rights'];
+            }else {
+                $coll->remove(array('filename' => $_POST['filename'], 'secret'=>$secret, 'owner' => $loggedInUser));
+                $response['status'] = 'OK';
+            }
+        }
         break;
 
     default:

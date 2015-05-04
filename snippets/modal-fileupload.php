@@ -9,7 +9,8 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-8">
-              <h4 class="page-header">Choose from list</h4>
+              <h4 class="page-header">
+                <span class="glyphicon glyphicon-refresh hoverable-icon" id="action-refreshfileuploadlist"></span>&nbsp;&nbsp;Choose from list</h4>
               <div id="modal-upload-files">
 
               </div>

@@ -127,7 +127,7 @@ if ($content == 'users' && isset($_GET['uaction'])) {
 
     </script>
 
-
+    <script type='text/javascript' src="styling.js"></script>
     <script type='text/javascript' src="script2.js"></script>
 
 

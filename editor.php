@@ -23,13 +23,13 @@ if(!defined('include_allowed')) {
                     </div>
 
                     <h2 class="page-header">
-                        <small>
+                       <!--<small>
                             <span class="glyphicon glyphicon-save hoverable-icon" id="action-savequery"></span>
                             &nbsp;&nbsp;
                             <span class="glyphicon glyphicon-remove hoverable-icon" id="action-deletequery"></span>
 
-                        </small>
-                        &nbsp;-&nbsp;<span id="querytitle">Query</span>
+                        </small>-->
+                        <span id="querytitle">Query</span>
                     </h2>
                     <div class="row">
                         &nbsp;&nbsp;&nbsp;
@@ -55,7 +55,7 @@ if(!defined('include_allowed')) {
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target=".bs-fileupload-modal-lg">Fileupload</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target=".bs-fileupload-modal-lg">CSV - Fileupload</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target=".bs-mongodb-modal-lg">MongoDP</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target=".bs-jdbc-modal-lg">JDBC (MySQL, etc.)</a></li>
                             </ul>
@@ -102,11 +102,11 @@ if(!defined('include_allowed')) {
                                     <td><a href="#" target="_blank">Go</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Link with params</td><td id="embedlink-B">save or load a query first</td>
+                                    <td>Link with params / nocache</td><td id="embedlink-B">save or load a query first</td>
                                     <td><a href="#" target="_blank">Go</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Link with params / No Cache</td><td id="embedlink-C">save or load a query first</td>
+                                    <td>Link with params / nocache / legend</td><td id="embedlink-C">save or load a query first</td>
                                     <td><a href="#" target="_blank">Go</a></td>
                                 </tr>
                                 </tbody>
@@ -128,22 +128,10 @@ if(!defined('include_allowed')) {
                             </div><div class="form-group">
                                 <label>Enter Folder Name or choose an existing (start typing)</label>
                                 <input type="text" class="form-control typeahead" name="queryopt-fname" placeholder="Folder Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Refresh (autom. Neuberechnung)</label>
-                                <select name="queryopt-refresh" class="form-control">
-                                    <option value="0">Keine Neuberechnung</option>
-                                    <option value="1440">24 Stunden</option>
-                                    <option value="480">8 Stunden</option>
-                                    <option value="60">1 Stunde</option>
-                                    <option value="15">15 Minuten</option>
-                                    <option value="5">5 Minuten</option>
-                                </select>
                             </div><div class="form-group">
                                 <label>Caching TTL</label>
                                 <select name="queryopt-caching" class="form-control">
                                     <option value="0">kein Caching</option>
-                                    <option value="-1">bis Refresh</option>
                                     <option value="1440">24 Stunden</option>
                                     <option value="480">8 Stunden</option>
                                     <option value="60">1 Stunde</option>
@@ -164,8 +152,7 @@ if(!defined('include_allowed')) {
 
                     <h4 class="page-header expandable"><span class="glyphicon glyphicon-menu-down"></span>&nbsp;Styling</h4>
                     <div class="bs-example" id="div-styling" >
-                        <?php include 'snippets/form-styling.php'; ?>
-
+                       <p>You have to execute the query before you can style it!</p>
                     </div>
 
                     <?php include 'snippets/modal-fileupload.php'; ?>

@@ -2,49 +2,46 @@
   $content = $_POST['content'];
   $diatype = isset($_POST['diatype']) ? $_POST['diatype'] : "";
 
+$types = array(
+    'label' => 'text',
+    'fillColor' => 'col',
+    'strokeColor' => 'col',
+    'pointColor' => 'col',
+    'pointStrokeColor' => 'col',
+    'pointHighlightFill' => 'col',
+    'pointHighlightStroke' => 'col',
+    'highlightFill' => 'col',
+    'highlightStroke' => 'col',
+    'color' => 'col',
+    'highlight' => 'col'
+
+);
+
 ?>
 
 <?php if($content == 'getTypes'):
 
-  $types1 = array(
-    'label' => 'text',
-    'fillColor' => 'col',
-    'strokeColor' => 'col',
-    'pointColor' => 'col',
-    'pointStrokeColor' => 'col',
-    'pointHighlightFill' => 'col',
-    'pointHighlightStroke' => 'col',
-    'highlightFill' => 'col',
-    'highlightStroke' => 'col'
-  );
-
-  echo json_encode($types1);
+  echo json_encode($types);
 
 elseif($content == 'getProperties'):
-
-  $types = array(
-    'label' => 'text',
-    'fillColor' => 'col',
-    'strokeColor' => 'col',
-    'pointColor' => 'col',
-    'pointStrokeColor' => 'col',
-    'pointHighlightFill' => 'col',
-    'pointHighlightStroke' => 'col',
-    'highlightFill' => 'col',
-    'highlightStroke' => 'col'
-  );
 
   $s = array();
   switch($diatype){
 
+    //CASE A OPTION STYLE
     case 'line':
+    case 'radar':
       $s = array('label', 'fillColor', 'strokeColor', 'pointColor', 'pointStrokeColor', 'pointHighlightFill', 'pointHighlightStroke');
       break;
     case 'bar':
       $s = array('label', 'fillColor', 'strokeColor', 'highlightFill', 'highlightStroke');
       break;
-    case 'radar':
-      $s = array('label', 'fillColor', 'strokeColor', 'pointColor', 'pointStrokeColor', 'pointHighlightFill', 'pointHighlightStroke');
+
+    //CASE B OPTION STYLE
+    case 'polar':
+    case 'pie':
+    case 'doughnut':
+      $s = array('label', 'color', 'highlight');
       break;
 
   }

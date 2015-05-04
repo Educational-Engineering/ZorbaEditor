@@ -77,7 +77,7 @@ function executeQuery($qcode, $params){
 
     return $qresult;
 }
-function getChartDataOptionsFromQueryResult($qresult, $ddata){
+function getChartDataOptionsFromQueryResult_A($qresult, $ddata){
     $resObj = json_decode($qresult, true);
 
     if(!isset($ddata['labels']))
@@ -92,6 +92,15 @@ function getChartDataOptionsFromQueryResult($qresult, $ddata){
     }
     return $ddata;
 }
+function getChartDataOptionsFromQueryResult_B($qresult, $ddata){
+    $resObj = json_decode($qresult, true);
+
+    $rawdata = getColFromJSON($resObj, 'data1');
+    for($i = 0; $i < count($rawdata['datasets']); $i++) {
+         $ddata[$i]['value'] = $rawdata[$i];
+    }
+    return $ddata;
+}
 function getColFromJSON($qresObj, $colname){
     $res = array();
     for($i = 0; $i < count($qresObj); $i++){
@@ -99,7 +108,7 @@ function getColFromJSON($qresObj, $colname){
     }
     return $res;
 }
-function getExampleQChartDataOptions($rows){
+function getExampleQChartDataOptions_A($rows){
     $qChartDataOptions = array(
             'labels' => array(),
             'datasets' => array()
@@ -111,6 +120,18 @@ function getExampleQChartDataOptions($rows){
                 'fillColor' => getRandomCol()
             );
         }
+
+    return $qChartDataOptions;
+}
+function getExampleQChartDataOptions_B($rows){
+    $qChartDataOptions = array();
+    for($i = 0; $i < $rows; $i++){
+        $qChartDataOptions[$i] = array(
+            'value' => 0,
+            'label' => ('data'+$i),
+            'color' => getRandomCol()
+        );
+    }
 
     return $qChartDataOptions;
 }

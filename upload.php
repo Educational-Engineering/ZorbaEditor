@@ -1,19 +1,24 @@
 <?php
-$ds          = DIRECTORY_SEPARATOR;
-$storeFolder = 'uploads';
-if (!empty($_FILES)) {
-    $tempFile = $_FILES['file']['tmp_name'];
-    $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
-    $targetFile =  $targetPath. $_FILES['file']['name'];
-    move_uploaded_file($tempFile,$targetFile);
-    echo "moved from: ".$tempFile." to: ".$targetFile;
+include 'mongoConnection.php';
+session_start();
 
-    $mdb = new MongoClient( "mongodb://52.28.54.81:27017" );
-    $db = $mdb->zorbaeditor;
-    $fcoll = $db->files;
-    $fcoll->insert(array(
-      'filename' => $_FILES['file']['name'],
-      'uploaded' => new MongoDate()
-    ));
+$coll = getCollFiles();
+
+$allowedMimes = array('application/vnd.ms-excel','text/plain','text/csv','text/tsv');
+$randomstring = $string = str_replace(',', '', strtr(base64_encode(openssl_random_pseudo_bytes(4)), '+/=', '-_,'));
+$owner = $_SESSION['loggedinUsername'];
+if (!empty($_FILES)) {
+    if(in_array($_FILES['file']['type'], $allowedMimes)) {
+        $tempFile = $_FILES['file']['tmp_name'];
+        $filecontent = file_get_contents($tempFile);
+
+        $coll->insert(array(
+            'filename' => $_FILES['file']['name'],
+            'secret' => $randomstring,
+            'content' => $filecontent,
+            'owner' => $owner,
+            'uploaded' => new MongoDate()
+        ));
+    }
 }
 ?>

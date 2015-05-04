@@ -145,8 +145,16 @@ function initFormValuesFromOptions(qResObj){
 }
 
 
-function getOptions() {
-    return options;
+function getOptionsStyling() {
+    if(typeof options != 'undefined'){
+        return options;
+    }else{
+        return {
+            charttyp: 'line',
+            chartdataA: {},
+            chartdataB: {}
+        };
+    }
 }
 
 function getCharttyp() {

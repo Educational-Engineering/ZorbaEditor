@@ -258,7 +258,7 @@ function saveQuery() {
     if (eQueryName != "" && eFolderName != "") {
         var isNewQuery = activeQID == "";
         var editor = getEditor();
-        var optionsStyling = getOptions();
+        var optionsStyling = getOptionsStyling();
         var postdata = {
             action: isNewQuery ? 'createQuery' : 'updateQuery',
             qid: activeQID,
@@ -437,7 +437,7 @@ function executeQuery() {
                                     function () {
                                         $('#tab3link').click();
                                         setupDiagram(qResult);
-                                        $("#tab2").html("<code>" + JSON.stringify(getOptions(), null, 2) + "</code>");
+                                        $("#tab2").html("<code>" + JSON.stringify(getOptionsStyling(), null, 2) + "</code>");
                                     },
                                     //on clicking reset button
                                     function () {
@@ -451,7 +451,7 @@ function executeQuery() {
                             }
                         } catch (err) {
                             $('#tab1link').click();
-                            $("#tab1").html("<code>" + s + "</code>");
+                            $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
                         }
                     });
             }catch(err) {

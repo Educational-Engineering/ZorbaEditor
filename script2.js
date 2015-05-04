@@ -270,7 +270,7 @@ function saveQuery() {
                 'caching': $('#queryopt-form select[name=queryopt-caching]').val(),
                 'chartdataA': optionsStyling.chartdataA,
                 'chartdataB': optionsStyling.chartdataB,
-                'charttyp':   optionsStyling.charttyp
+                'charttyp': optionsStyling.charttyp
             }
         };
 
@@ -305,8 +305,7 @@ function loadQuery(qid) {
         $('#queryopt-form input[name=queryopt-fname]').val(dataObj.parentFolder);
         $('#queryopt-form select[name=queryopt-caching]').val(dataObj.options.caching);
 
-        setOptionsFromExisting(dataObj.options);
-        optionsCreated = true;
+        optionsCreated = setOptionsFromExisting(dataObj.options);
 
         stylingLoaded = false;
         $('#div-styling').empty();
@@ -418,47 +417,51 @@ function executeQuery() {
                 $.post("snippets/form-styling.php", {})
                     .done(function (data) {
 
-                        if(!optionsCreated)
-                            setNewOptionsFromQResult(qResult);
+                        try {
+                            if (!optionsCreated)
+                                setNewOptionsFromQResult(qResult);
 
-                        if(!stylingLoaded) {
-                            $('#div-styling').html(data);
-                            loadStylingForm(
-                                //on form loading finished
-                                function () {
-                                    stylingLoaded = true;
-                                    initFormValuesFromOptions(qResult);
+                            if (!stylingLoaded) {
+                                $('#div-styling').html(data);
+                                loadStylingForm(
+                                    //on form loading finished
+                                    function () {
+                                        stylingLoaded = true;
+                                        initFormValuesFromOptions(qResult);
 
-                                    $('#tab3link').click();
-                                    setupDiagram(qResult);
-                                    $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
-                                },
-                                //on clicking apply button
-                                function () {
-                                    $('#tab3link').click();
-                                    setupDiagram(qResult);
-                                    $("#tab2").html("<code>" + JSON.stringify(getOptions(), null, 2) + "</code>");
-                                },
-                                //on clicking reset button
-                                function () {
-                                    setupDiagram(qResult);
-                                }
-                            );
-                        }else{
-                            $('#tab3link').click();
-                            setupDiagram(qResult);
-                            $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
+                                        $('#tab3link').click();
+                                        setupDiagram(qResult);
+                                        $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
+                                    },
+                                    //on clicking apply button
+                                    function () {
+                                        $('#tab3link').click();
+                                        setupDiagram(qResult);
+                                        $("#tab2").html("<code>" + JSON.stringify(getOptions(), null, 2) + "</code>");
+                                    },
+                                    //on clicking reset button
+                                    function () {
+                                        setupDiagram(qResult);
+                                    }
+                                );
+                            } else {
+                                $('#tab3link').click();
+                                setupDiagram(qResult);
+                                $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
+                            }
+                        } catch (err) {
+                            $('#tab1link').click();
+                            $("#tab1").html("<code>" + s + "</code>");
                         }
                     });
-            }
-            catch (err) {
+            }catch(err) {
                 $('#tab1link').click();
                 $("#tab1").html("<code>" + s + "</code>");
             }
-
-        });
+        }
+    )
+    ;
 }
-
 
 
 //styles the diagram from the options

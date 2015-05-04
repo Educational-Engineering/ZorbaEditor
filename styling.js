@@ -103,8 +103,10 @@ function loadStylingForm(cbLoadingFinished, cbApply1, cbReset1) {
 function setOptionsFromExisting(options2Set) {
     if (options2Set.hasOwnProperty('chartdataA') && options2Set.hasOwnProperty('chartdataB')) {
         options = options2Set;
+        return true;
     } else {
         options = undefined;
+        return false;
     }
 }
 

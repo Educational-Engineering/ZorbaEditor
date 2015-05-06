@@ -5,6 +5,7 @@ var qResult = "";
 var activeQID = "";
 var stylingLoaded = false;
 var optionsCreated = false;
+var querySuccessfullyDisplayed = false;
 //typeahead
 var substringMatcher;
 var fnames = [];
@@ -258,7 +259,8 @@ function saveQuery() {
     if (eQueryName != "" && eFolderName != "") {
         var isNewQuery = activeQID == "";
         var editor = getEditor();
-        var optionsStyling = getOptionsStyling();
+        var optionsStyling = (querySuccessfullyDisplayed && qResult != "") ? 
+            getOptionsForDiagram(qResult, getCharttyp()) : getOptionsStyling();
         var postdata = {
             action: isNewQuery ? 'createQuery' : 'updateQuery',
             qid: activeQID,
@@ -414,15 +416,15 @@ function executeQuery() {
                 qResult = JSON.parse(s);
 
                 //load styling form
-                $.post("snippets/form-styling.php", {})
-                    .done(function (data) {
-
+               
                         try {
-                            if (!optionsCreated)
+                            if (!optionsCreated){
                                 setNewOptionsFromQResult(qResult);
+                                optionsCreated = true;
+                            }
 
                             if (!stylingLoaded) {
-                                $('#div-styling').html(data);
+                              
                                 loadStylingForm(
                                     //on form loading finished
                                     function () {
@@ -441,6 +443,7 @@ function executeQuery() {
                                     },
                                     //on clicking reset button
                                     function () {
+                                        setNewOptionsFromQResult(qResult);
                                         setupDiagram(qResult);
                                     }
                                 );
@@ -453,7 +456,7 @@ function executeQuery() {
                             $('#tab1link').click();
                             $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
                         }
-                    });
+                    
             }catch(err) {
                 $('#tab1link').click();
                 $("#tab1").html("<code>" + s + "</code>");
@@ -468,7 +471,7 @@ function executeQuery() {
 //gets the data from the query result
 //and initializes a new chart
 function setupDiagram(qdata) {
-    var diaType = $('#styling-form select[name=diastyle-diatype]').val();
+  
     var chart1 = document.getElementById('myChart').getContext('2d');
 
     if (activeChart != null)
@@ -489,6 +492,8 @@ function setupDiagram(qdata) {
         activeChart = new Chart(chart1).Pie(ddata, '{}');
     else if (diaType == 'doughnut')
         activeChart = new Chart(chart1).Doughnut(ddata, '{}');
+        
+    querySuccessfullyDisplayed = true;
 }
 
 

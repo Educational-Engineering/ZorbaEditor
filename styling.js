@@ -101,7 +101,9 @@ function loadStylingForm(cbLoadingFinished, cbApply1, cbReset1) {
 }
 
 function setOptionsFromExisting(options2Set) {
-    if (options2Set.hasOwnProperty('chartdataA') && options2Set.hasOwnProperty('chartdataB')) {
+    if (options2Set.hasOwnProperty('charttyp') && 
+        options2Set.hasOwnProperty('chartdataA') && 
+        options2Set.hasOwnProperty('chartdataB')) {
         options = options2Set;
         return true;
     } else {
@@ -119,11 +121,6 @@ function setNewOptionsFromQResult(qResObj) {
     setExampleqChartDataOptionsA(getDatarowsFromResult(qResObj, true));
     setExampleqChartDataOptionsB(getDatarowsFromResult(qResObj, false));
 
-  /*  if ($('#styling-form').length > 0) {
-        //init form with values
-        initFormValuesFromOptions();
-    }
-    */
 }
 
 function initFormValuesFromOptions(qResObj){
@@ -149,6 +146,7 @@ function getOptionsStyling() {
     if(typeof options != 'undefined'){
         return options;
     }else{
+        //return empty options
         return {
             charttyp: 'line',
             chartdataA: {},
@@ -184,8 +182,10 @@ function getOptionsForDiagram(qResult, charttyp) {
 
         var ddata = options.chartdataB
         var rawData = getColFromJSON(qResult, 'data1');
+        var labels = getColFromJSON(qResult, 'label');
         for (var i = 0; i < rawData.length; i++) {
             ddata[i]['value'] = rawData[i];
+            ddata[i]['label'] = labels[i];
         }
 
         return ddata;

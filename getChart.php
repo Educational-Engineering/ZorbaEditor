@@ -6,8 +6,9 @@ $coll = getCollQueries();
 $qid = $_GET['qid'];
 $doc = $coll->findOne(array('_id' => new MongoId($qid)));
 
-
-$chartOptions = isset($doc['options']['chartdata']) ? $doc['options']['chartdata'] : null;
+$charttyp = $doc['options']['charttyp'];
+$chartOptionsA = $doc['options']['chartdataA'];
+$chartOptionsB = $doc['options']['chartdataB'];
 $showlegend = isset($_GET['showlegend']) ? filter_var($_GET['showlegend'], FILTER_VALIDATE_BOOLEAN) : false;
 $usecached = true;
 if(isset($_GET['usecached']))
@@ -30,18 +31,24 @@ if($usecached){
 }else{
 
     $qresult = executeQuery($doc['qcode'], $doc['params']);
-    //do we have existing chartOptions? if not set sample data
-    if($chartOptions == null)
-        $chartOptions = getExampleQChartDataOptions(1);
-
-    //now update the chart options with the data from the query
-    $chartOptions = getChartDataOptionsFromQueryResult($qresult, $chartOptions);
-
+    $newdata = array();
+    //create options based on charttyp
+    $chartOptions = array();
+    if($charttyp == 'line' || $charttyp == 'bar' || $charttyp == 'radar'){
+        $chartOptions = getChartDataOptionsFromQueryResult_A($qresult, $chartOptionsA);
+        $newdata = array('$set' => array(
+            'options.chartdataA' => $chartOptions,
+            'lastExecution' => new MongoDate()
+        ));
+    }else{
+        $chartOptions = getChartDataOptionsFromQueryResult_B($qresult, $chartOptionsB);
+        $newdata = array('$set' => array(
+            'options.chartdataB' => $chartOptions,
+            'lastExecution' => new MongoDate()
+        ));
+    }
+    
     //update the chartdata in the mongodb
-    $newdata = array('$set' => array(
-        'options.chartdata' => $chartOptions,
-        'lastExecution' => new MongoDate()
-    ));
     $coll->update(array('_id' => new MongoId($doc['_id'])), $newdata);
 
 }
@@ -96,8 +103,10 @@ function getChartDataOptionsFromQueryResult_B($qresult, $ddata){
     $resObj = json_decode($qresult, true);
 
     $rawdata = getColFromJSON($resObj, 'data1');
+    $labels = getColFromJSON($resObj, 'label');
     for($i = 0; $i < count($rawdata['datasets']); $i++) {
          $ddata[$i]['value'] = $rawdata[$i];
+         $ddata[$i]['label'] = $labels[$i];
     }
     return $ddata;
 }
@@ -165,14 +174,18 @@ function getRandomCol(){
 
         var chart1 = document.getElementById('myChart').getContext('2d');
         var activeChart;
-        if(diaType == 'line')
-            activeChart = new Chart(chart1).Line(ddata, options);
-        else if(diaType == 'bar')
-            activeChart = new Chart(chart1).Bar(ddata, options);
-        else if(diaType == 'radar')
-            activeChart = new Chart(chart1).Radar(ddata, options);
-        else
-            activeChart = new Chart(chart1).Line(ddata, options);
+        if (diaType == 'line')
+            activeChart = new Chart(chart1).Line(ddata, '{}');
+        else if (diaType == 'bar')
+            activeChart = new Chart(chart1).Bar(ddata, '{}');
+        else if (diaType == 'radar')
+            activeChart = new Chart(chart1).Radar(ddata, '{}');
+        else if (diaType == 'polar')
+            activeChart = new Chart(chart1).PolarArea(ddata, '{}');
+        else if (diaType == 'pie')
+            activeChart = new Chart(chart1).Pie(ddata, '{}');
+        else if (diaType == 'doughnut')
+            activeChart = new Chart(chart1).Doughnut(ddata, '{}');
 
         <?php if($showlegend): ?>
             var legend = activeChart.generateLegend();

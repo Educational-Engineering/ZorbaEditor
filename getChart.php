@@ -24,16 +24,20 @@ $diff = $now->getTimestamp() - $lastExecution->getTimestamp();
 if($diff / 60 > $maxCacheTTL)
     $usecached = false;
 
+$chartOptions = array();
 if($usecached){
 
-    //nothing to do
+    if($charttyp == 'line' || $charttyp == 'bar' || $charttyp == 'radar'){
+        $chartOptions = $chartOptionsA;
+    }else{
+        $chartOptions = $chartOptionsB;
+    }
 
 }else{
 
     $qresult = executeQuery($doc['qcode'], $doc['params']);
     $newdata = array();
     //create options based on charttyp
-    $chartOptions = array();
     if($charttyp == 'line' || $charttyp == 'bar' || $charttyp == 'radar'){
         $chartOptions = getChartDataOptionsFromQueryResult_A($qresult, $chartOptionsA);
         $newdata = array('$set' => array(

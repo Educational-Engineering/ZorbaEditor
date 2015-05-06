@@ -513,7 +513,10 @@ function addImportStatements() {
         editor.insert("\n");
     }
 
-    findAndInsert(editor, 'mongo2:', 'import module namespace mongo2="http://www.zorba-xquery.com/modules/mongo2";')
+    findAndInsert(editor, 'mongo2:', 'import module namespace mongo2="http://www.zorba-xquery.com/modules/mongo2";\n');
+    findAndInsert(editor, 'http:', 'import module namespace http = "http://zorba.io/modules/http-client";\n');
+    findAndInsert(editor, 'csv:', 'import module namespace csv = "http://zorba.io/modules/json-csv";\n');
+    findAndInsert(editor, 'jdbc:', 'import module namespace jdbc = "http://www.zorba-xquery.com/modules/jdbc";\n');
 
     editor.gotoLine(cursor['line']);
 }
@@ -537,6 +540,7 @@ function findAndInsert(editor, trigger, insert) {
 
             editor.gotoLine(2);
             editor.insert(insert);
+            //editor.insert({row:2, column: 0}, insert+'');
 
         }
     }

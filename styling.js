@@ -142,9 +142,13 @@ function initFormValuesFromOptions(qResObj){
 }
 
 
-function getOptionsStyling() {
+function getOptionsStyling(optionsWithData, qResult) {
     if(typeof options != 'undefined'){
-        return options;
+        return {
+            charttyp : options.charttyp,
+            chartdataA : getOptionsForDiagram(qResult, 'line'),
+            chartdataB : getOptionsForDiagram(qResult, 'pie')
+        };
     }else{
         //return empty options
         return {

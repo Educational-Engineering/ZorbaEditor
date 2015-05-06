@@ -259,8 +259,7 @@ function saveQuery() {
     if (eQueryName != "" && eFolderName != "") {
         var isNewQuery = activeQID == "";
         var editor = getEditor();
-        var optionsStyling = (querySuccessfullyDisplayed && qResult != "") ? 
-            getOptionsForDiagram(qResult, getCharttyp()) : getOptionsStyling();
+        var optionsStyling = getOptionsStyling((querySuccessfullyDisplayed && qResult != ""), qResult);
         var postdata = {
             action: isNewQuery ? 'createQuery' : 'updateQuery',
             qid: activeQID,

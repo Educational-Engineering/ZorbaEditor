@@ -1,14 +1,19 @@
 <?php
 
+function getProxyURL(){
+    return 'http://'.$_SERVER['SERVER_NAME'].'/zorbaquery.php';
+}
+
 function getDB(){
-    $mdb = new MongoClient( "mongodb://52.28.54.81:27017" );
+    //$mdb = new MongoClient( "mongodb://52.28.54.81:27017" );
+    $mdb = new MongoClient( "mongodb://".$_SERVER['SERVER_NAME'].":27017" );
     $db = $mdb->zorbaeditor;
     return $db;
 }
 
-function getZorbaProxyURL(){
-    return 'http://52.28.54.81/zorbaquery.php';
-}
+//function getZorbaProxyURL(){
+//    return 'http://52.28.54.81/zorbaquery.php';
+//}
 
 function getCollQueries(){
     $coll = getDB()->queries;

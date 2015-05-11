@@ -5,7 +5,6 @@ var qResult = "";
 var activeQID = "";
 var stylingLoaded = false;
 var optionsCreated = false;
-var querySuccessfullyDisplayed = false;
 //typeahead
 var substringMatcher;
 var fnames = [];
@@ -259,7 +258,7 @@ function saveQuery() {
     if (eQueryName != "" && eFolderName != "") {
         var isNewQuery = activeQID == "";
         var editor = getEditor();
-        var optionsStyling = getOptionsStyling((querySuccessfullyDisplayed && qResult != ""), qResult);
+        var optionsStyling = getOptionsStyling();
         var postdata = {
             action: isNewQuery ? 'createQuery' : 'updateQuery',
             qid: activeQID,
@@ -415,15 +414,15 @@ function executeQuery() {
                 qResult = JSON.parse(s);
 
                 //load styling form
-               
+                $.post("snippets/form-styling.php", {})
+                    .done(function (data) {
+
                         try {
-                            if (!optionsCreated){
+                            if (!optionsCreated)
                                 setNewOptionsFromQResult(qResult);
-                                optionsCreated = true;
-                            }
 
                             if (!stylingLoaded) {
-                              
+                                $('#div-styling').html(data);
                                 loadStylingForm(
                                     //on form loading finished
                                     function () {
@@ -442,7 +441,6 @@ function executeQuery() {
                                     },
                                     //on clicking reset button
                                     function () {
-                                        setNewOptionsFromQResult(qResult);
                                         setupDiagram(qResult);
                                     }
                                 );
@@ -455,7 +453,7 @@ function executeQuery() {
                             $('#tab1link').click();
                             $("#tab1").html("<code>" + JSON.stringify(qResult, null, 2) + "</code>");
                         }
-                    
+                    });
             }catch(err) {
                 $('#tab1link').click();
                 $("#tab1").html("<code>" + s + "</code>");
@@ -470,7 +468,7 @@ function executeQuery() {
 //gets the data from the query result
 //and initializes a new chart
 function setupDiagram(qdata) {
-  
+    var diaType = $('#styling-form select[name=diastyle-diatype]').val();
     var chart1 = document.getElementById('myChart').getContext('2d');
 
     if (activeChart != null)
@@ -491,8 +489,6 @@ function setupDiagram(qdata) {
         activeChart = new Chart(chart1).Pie(ddata, '{}');
     else if (diaType == 'doughnut')
         activeChart = new Chart(chart1).Doughnut(ddata, '{}');
-        
-    querySuccessfullyDisplayed = true;
 }
 
 
@@ -513,10 +509,7 @@ function addImportStatements() {
         editor.insert("\n");
     }
 
-    findAndInsert(editor, 'mongo2:', 'import module namespace mongo2="http://www.zorba-xquery.com/modules/mongo2";\n');
-    findAndInsert(editor, 'http:', 'import module namespace http = "http://zorba.io/modules/http-client";\n');
-    findAndInsert(editor, 'csv:', 'import module namespace csv = "http://zorba.io/modules/json-csv";\n');
-    findAndInsert(editor, 'jdbc:', 'import module namespace jdbc = "http://www.zorba-xquery.com/modules/jdbc";\n');
+    findAndInsert(editor, 'mongo2:', 'import module namespace mongo2="http://www.zorba-xquery.com/modules/mongo2";')
 
     editor.gotoLine(cursor['line']);
 }
@@ -540,7 +533,6 @@ function findAndInsert(editor, trigger, insert) {
 
             editor.gotoLine(2);
             editor.insert(insert);
-            //editor.insert({row:2, column: 0}, insert+'');
 
         }
     }

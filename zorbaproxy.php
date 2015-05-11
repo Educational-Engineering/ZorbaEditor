@@ -4,7 +4,9 @@ if(empty($_POST['query'])){
   die("No Query given");
 }
 
-$url = 'http://52.28.54.81/zorbaquery.php';
+include 'mongoConnection.php';
+
+$url = getProxyURL();
 $data = array('query' => $_POST['query']);
 
 // use key 'http' even if you send the request to https://...

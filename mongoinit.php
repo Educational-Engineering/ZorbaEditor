@@ -1,16 +1,22 @@
 <?php
-
+include 'mongoConnection.php';
 include 'usermanager.php';
 
-$mdb = new MongoClient( "mongodb://".$_SERVER['SERVER_NAME'].":27017" );
+$mdb = getClient();
 $db = $mdb->zorbaeditor;
 
 $db->createCollection ("queries");
 $db->createCollection ("files");
 $db->createCollection ("users");
 
-addUser('admin', 'admin', true);
-addUser('user', 'user', false);
+$coll = getCollUsers();
+if($coll->count(array()) == 0) {
+    addUser('admin', 'admin', true);
+    addUser('user', 'user', false);
+    echo "<h1>Added Initial users</h1>";
+}else{
+    echo "<h1>User Table not empty!!</h1>";
+}
 
 ?>
 

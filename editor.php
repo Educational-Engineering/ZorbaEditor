@@ -9,7 +9,7 @@ if(!defined('include_allowed')) {
 
             <h4 class="div-inline">Saved Queries</h4>&nbsp;&nbsp;
             <span class="glyphicon glyphicon-refresh hoverable-icon" id="action-refreshquerylist"></span>&nbsp;&nbsp;
-            <span class="glyphicon glyphicon-plus hoverable-icon" id="action-addnewquery"></span>
+            <a href="index.php?content=editor"><span class="glyphicon glyphicon-plus hoverable-icon" id="action-addnewquery"></span></a>
             <div id="querylist" class="tree">
 
             </div>

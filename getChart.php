@@ -62,7 +62,7 @@ function executeQuery($qcode, $params){
     }
 
     //direct execution
-    $url = getZorbaProxyURL();
+    $url = getProxyURL();
     $data = array('query' => $qcode);
     $options = array(
         'http' => array(

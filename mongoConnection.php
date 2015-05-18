@@ -1,11 +1,14 @@
 <?php
 
+//function getProxyURL(){
+//    return 'http://'.$_SERVER['SERVER_NAME'].'/editor/zorbaquery.php';
+//}
 function getProxyURL(){
-    return 'http://'.$_SERVER['SERVER_NAME'].'/editor/zorbaquery.php';
+    return 'http://zorbax5.mentras.ch/editor/zorbaquery.php';
 }
 
 function getClient(){
-    return new MongoClient( "mongodb://".$_SERVER['SERVER_NAME'].":27017" );
+    return new MongoClient( "mongodb://zorbax5.mentras.ch:27017" );
 }
 
 function getDB(){

@@ -72,9 +72,9 @@ if(!defined('include_allowed')) {
                         <li role="presentation">
                             <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab" id="tab1link">Query Raw Result</a>
                         </li>
-                        <li role="presentation">
+                        <!--<li role="presentation">
                             <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Raw Chart Options</a>
-                        </li>
+                        </li>-->
                         <li role="presentation" class="active">
                             <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" id="tab3link">Data Visual</a>
                         </li>
@@ -87,7 +87,7 @@ if(!defined('include_allowed')) {
                     <!-- Tab panes -->
                     <div id="resulttabs" class="tab-content">
                         <div role="tabpanel" class="tab-pane" id="tab1">...</div>
-                        <div role="tabpanel" class="tab-pane" id="tab2">...</div>
+                        <!--<div role="tabpanel" class="tab-pane" id="tab2">...</div>-->
                         <div role="tabpanel" class="tab-pane active" id="tab3">
                             <canvas id="myChart" width="400" height="400">
                             </canvas>

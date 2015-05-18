@@ -110,7 +110,7 @@ switch ($_POST['action']) {
                 'qcode' => $_POST['qcode'],
                 'lastExecution' => new MongoDate(),
                 'options' => $_POST['options'],
-                'params' => $_POST['params'],
+                'params' => isset($_POST['params']) ? $_POST['params'] : array(),
                 'owner' => $loggedInUsername
             );
             $coll->update(array('_id' => new MongoId($_POST['qid'])), $doc);

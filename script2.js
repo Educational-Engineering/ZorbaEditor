@@ -282,6 +282,7 @@ function saveQuery() {
                 setAlert('danger', "Query couldn't be saved: " + data2.message);
 
             refreshTypeaheadFolders();
+            refreshSavedQueries();
         });
     } else {
         alert("No Queryname or Foldername given. Please fix.");
@@ -324,12 +325,12 @@ function deleteQuery(qid) {
             $.post("querystoremanager.php", postdata).done(function (data) {
                 var data2 = JSON.parse(data);
                 if (data2.status == 'OK') {
-                    setAlert('info', "Query was saved");
+                    setAlert('info', "Query was removed");
                     activeQID = "";
                     refreshSavedQueries();
                     //TODO: reset all fields
                 } else
-                    setAlert('danger', "Query couldn't be saved: " + data2.message);
+                    setAlert('danger', "Query couldn't be removed: " + data2.message);
             });
         }
     }
@@ -437,7 +438,7 @@ function executeQuery() {
                                     function () {
                                         $('#tab3link').click();
                                         setupDiagram(qResult);
-                                        $("#tab2").html("<code>" + JSON.stringify(getOptionsStyling(), null, 2) + "</code>");
+                                        //$("#tab2").html("<code>" + JSON.stringify(getOptionsStyling(), null, 2) + "</code>");
                                     },
                                     //on clicking reset button
                                     function () {

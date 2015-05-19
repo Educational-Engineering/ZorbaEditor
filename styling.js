@@ -119,13 +119,12 @@ function setNewOptionsFromQResult(qResObj) {
     setExampleqChartDataOptionsA(getDatarowsFromResult(qResObj, true));
     setExampleqChartDataOptionsB(getDatarowsFromResult(qResObj, false));
 
-    initFormValuesFromOptions(qResObj);
 
-  /*  if ($('#styling-form').length > 0) {
+    if ($('#styling-form').length > 0) {
         //init form with values
         initFormValuesFromOptions();
     }
-    */
+
 }
 
 function initFormValuesFromOptions(qResObj){
@@ -140,8 +139,6 @@ function initFormValuesFromOptions(qResObj){
         form.find('select[name=diastyle-propchoser]').html(data1);
     });
 
-    var diatype = form.find('select[name=diastyle-diatype]').val();
-    options.charttyp = diatype;
     setDataRowsTo(getDatarowsFromResult(qResObj, currentChartOptionsIsA(options.charttyp)));
     restoreDatarowFromOptionsObj(1);
 }

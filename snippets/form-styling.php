@@ -15,8 +15,8 @@
     <div class="btn-group" role="group" id="diastyle-datarowbuttons" >
       <button type="button" class="btn btn-default datarowbtn" rowno="0" id="diastyle-datarow-global" >Global</button>
       <button type="button" class="btn btn-default datarowbtn active" rowno="1" id="diastyle-datarow-1">Data Row 1</button>
-      <button type="button" class="btn btn-default" id="diastyle-removedatarow"><span class="glyphicon glyphicon-minus" /></button>
-      <button type="button" class="btn btn-default" id="diastyle-adddatarow"><span class="glyphicon glyphicon-plus" /></button>
+     <!--<button type="button" class="btn btn-default" id="diastyle-removedatarow"><span class="glyphicon glyphicon-minus" /></button>
+      <button type="button" class="btn btn-default" id="diastyle-adddatarow"><span class="glyphicon glyphicon-plus" /></button>-->
     </div>
   </div>
   <div class="form-group">

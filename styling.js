@@ -79,13 +79,13 @@ function loadStylingForm(cbLoadingFinished, cbApply1, cbReset1) {
             });
 
 
-            form.find('#diastyle-adddatarow').on('click', function () {
-                setDataRowsTo(actualRowCount + 1);
-            });
-
-            form.find('#diastyle-removedatarow').on('click', function () {
-                setDataRowsTo(actualRowCount - 1);
-            });
+            //form.find('#diastyle-adddatarow').on('click', function () {
+            //    setDataRowsTo(actualRowCount + 1);
+            //});
+            //
+            //form.find('#diastyle-removedatarow').on('click', function () {
+            //    setDataRowsTo(actualRowCount - 1);
+            //});
 
             form.find('#action-diastyleapply').on('click', function () {
                 applyStyleClick();
@@ -118,6 +118,8 @@ function setNewOptionsFromQResult(qResObj) {
     };
     setExampleqChartDataOptionsA(getDatarowsFromResult(qResObj, true));
     setExampleqChartDataOptionsB(getDatarowsFromResult(qResObj, false));
+
+    initFormValuesFromOptions(qResObj);
 
   /*  if ($('#styling-form').length > 0) {
         //init form with values
@@ -250,8 +252,9 @@ function applyStyleClick() {
 
 function resetStyleClick() {
     if (confirm('Do you really want to reset all the styles?')) {
-        setExampleqChartDataOptionsA(1);
-        setExampleqChartDataOptionsB(1);
+        //setExampleqChartDataOptionsA(1);
+        //setExampleqChartDataOptionsB(1);
+
         $('#styling-form select[name=diastyle-diatype]').val('line');
 
         cbReset();

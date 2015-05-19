@@ -442,6 +442,7 @@ function executeQuery() {
                                     },
                                     //on clicking reset button
                                     function () {
+                                        setNewOptionsFromQResult(qResult);
                                         setupDiagram(qResult);
                                     }
                                 );
